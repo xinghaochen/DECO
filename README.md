@@ -8,7 +8,7 @@
 [[`arXiv`](https://arxiv.org/pdf/2312.13735.pdf)] [[`BibTeX`](#citation)]
 
 ## Updates
-* **2024/02/04**: Pre-trained models and codes of DECO are released both in [Pytorch](https://github.com/xinghaochen/DECO) and [Mindspore](https://gitee.com/mindspore/models/tree/master/research/cv/TinySAM).
+* **2024/02/04**: Pre-trained models and codes of DECO are released both in [Pytorch](https://github.com/xinghaochen/DECO) and [Mindspore](https://github.com/mindspore-lab/models/tree/master/research/huawei-noah/DECO).
 
 ## Overview
 

@@ -1,11 +1,11 @@
 # DECO
 ### **DECO: Query-Based End-to-End Object Detection with ConvNets**
 
-*Xinghao Chen\*, Siwei Li\*, Yijing Yang, Yunhe Wang* (\*Equal Contribution)
+*Xinghao Chen\*, Siwei Li\*, Yijing Yang, Yunhe Wang (\*Equal Contribution)*
 
 *arXiv 2023* 
 
-[[`arXiv`](https://arxiv.org/pdf/2312.13735.pdf)] [[`BibTeX`](#citation)]
+[[`arXiv`](https://arxiv.org/abs/2312.13735)] [[`BibTeX`](#citation)]
 
 ## Updates
 * **2024/02/04**: Pre-trained models and codes of DECO are released both in [Pytorch](https://github.com/xinghaochen/DECO) and [Mindspore](https://github.com/mindspore-lab/models/tree/master/research/huawei-noah/DECO).

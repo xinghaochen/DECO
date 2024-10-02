@@ -54,7 +54,7 @@ def get_args_parser():
                         help="Name of the convolutional backbone to use")
     parser.add_argument('--backbone', default='resnet50', type=str,
                         help="Name of the convolutional backbone to use")
-    parser.add_argument('--in_22k', default=1, type=int,help="using imageNet 22k pretrained or using 1k pretrained")
+    parser.add_argument('--in_22k', default=0, type=int,help="using imageNet 22k pretrained or using 1k pretrained")
     parser.add_argument('--dilation', action='store_true',
                         help="If true, we replace stride with dilation in the last convolutional block (DC5)")
                         

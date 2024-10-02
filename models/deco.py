@@ -30,6 +30,7 @@ from .util.misc import (NestedTensor, nested_tensor_from_tensor_list,
                        is_dist_avail_and_initialized)
 
 from .backbone_resnet import build_backbone as build_backbone_resnet
+from .backbone_convnext import build_backbone as build_backbone_convnext
 
 from .matcher_deform import build_matcher
 from .segmentation import (DETRsegm, PostProcessPanoptic, PostProcessSegm,
@@ -403,7 +404,11 @@ def build(args):
 
     device = torch.device(args.device)
 
-    backbone = build_backbone_resnet(args)
+    if 'resnet' in args.backbone:
+        backbone = build_backbone_resnet(args)
+    else:
+        backbone = build_backbone_convnext(args)
+
     deco_convnet = build_deco_convnet(args)
 
     model = DECO(

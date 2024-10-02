@@ -8,6 +8,7 @@
 [[`arXiv`](https://arxiv.org/abs/2312.13735)] [[`BibTeX`](#citation)]
 
 ## Updates
+* **2024/10/03**: Update pre-trained models and codes for ConvNeXt backbone.
 * **2024/02/04**: Pre-trained models and codes of DECO are released both in [Pytorch](https://github.com/xinghaochen/DECO) and [Mindspore](https://github.com/mindspore-lab/models/tree/master/research/huawei-noah/DECO).
 
 ## Overview
@@ -22,9 +23,10 @@ Detection ConvNet (**DECO**) is a simple yet effective query-based end-to-end ob
 
 Here we provide the pretrained `DECO` weights.
 
-| Backbone | Pretrain | Epochs | Queries| AP (%) | Download |
+| Detector | Backbone  | Epochs | Queries| AP (%) | Download |
 | ------------------- | -------- | ------- |------- |------- |------- |
-| R-50 |ImageNet-1k| 150 | 100 | 38.8 | [deco_r50_150e](https://github.com/xinghaochen/DECO/releases/download/1.0/deco_r50_150e.pth)
+| DECO | R-50 | 150 | 100 | 38.8 | [deco_r50_150e.pth](https://github.com/xinghaochen/DECO/releases/download/1.0/deco_r50_150e.pth)
+| DECO | ConvNeXt-Tiny | 150 | 100 | 40.8 | [deco_convnextTiny1K_150.pth](https://github.com/xinghaochen/DECO/releases/download/1.0/deco_convnextTiny1K_150.pth)
 
 ## Installation
 ```bash
@@ -63,7 +65,25 @@ IoU metric: bbox
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.798
 ```
 
-## Citation
+```bash
+Results of DECO with ConvNeXt-Tiny backbone:
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.408
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.615
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.436
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.211
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.455
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.579
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.330
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.534
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.569
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.318
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.622
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.805
+```
+
+
+## Citing DECO
 If you find our work helpful for your research, please consider citing the following BibTeX entry.
 
 ```BibTex

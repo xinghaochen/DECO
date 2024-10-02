@@ -1,0 +1,11 @@
+__include__: [
+  '../dataset/coco_detection.yml',
+  '../runtime.yml',
+  './include/dataloader.yml',
+  './include/optimizer.yml',
+  './include/decoplus_base.yml',
+]
+
+output_dir: ./output
+
+epoches: 150

@@ -8,7 +8,8 @@
 [[`arXiv`](https://arxiv.org/abs/2312.13735)] [[`BibTeX`](#citation)]
 
 ## Updates
-* **2024/10/03**: Update pre-trained models and codes for ConvNeXt backbone.
+* **2024/10/03**: Update pre-trained models and codes for DECO+.
+* **2024/10/02**: Update pre-trained models and codes for ConvNeXt backbone.
 * **2024/02/04**: Pre-trained models and codes of DECO are released both in [Pytorch](https://github.com/xinghaochen/DECO) and [Mindspore](https://github.com/mindspore-lab/models/tree/master/research/huawei-noah/DECO).
 
 ## Overview
@@ -27,22 +28,27 @@ Here we provide the pretrained `DECO` weights.
 | ------------------- | -------- | ------- |------- |------- |------- |
 | DECO | R-50 | 150 | 100 | 38.8 | [deco_r50_150e.pth](https://github.com/xinghaochen/DECO/releases/download/1.0/deco_r50_150e.pth)
 | DECO | ConvNeXt-Tiny | 150 | 100 | 40.8 | [deco_convnextTiny1K_150.pth](https://github.com/xinghaochen/DECO/releases/download/1.0/deco_convnextTiny1K_150.pth)
+| DECO+ | R-18 | 150 | - | 40.7 | [decoplus_r18_150e.pth](https://github.com/xinghaochen/DECO/releases/download/1.0/decoplus_r18_150e.pth)
+| DECO+ | R-50 | 150 | - | 47.9 | [decoplus_r50_150e.pth](https://github.com/xinghaochen/DECO/releases/download/1.0/decoplus_r50_150e.pth)
 
-## Installation
+## DECO
+
+### Installation
 ```bash
 pip install torch==1.8.0 torchvision==0.9.0
 pip install pycocotools
 pip install timm
 ```
 
-## Training
+### Training
 
 ```bash
+cd deco
 python -m torch.distributed.launch --nproc_per_node=4 --use_env main.py --backbone resnet50 --batch_size 2 --coco_path {your_path_to_coco} --output_dir {your_path_for_outputs} # 4 gpus example
 ```
 By default, we use 4 GPUs with total batch size as 8 for training DECO with ResNet-50 backbone.
 
-## Evaluation
+### Evaluation
 Model evaluation can be done as follows:
 
 ```bash
@@ -80,6 +86,64 @@ IoU metric: bbox
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.318
  Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.622
  Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.805
+```
+
+## DECO+
+
+### Installation
+```bash
+conda create --name decoplus --python=3.8
+conda activate decoplus
+pip install -r requirements.txt
+```
+
+### Training
+
+To train a DECO+ model on a single node with 8 gpus:
+```bash
+cd deco_plus
+python -m torch.distributed.launch --nproc_per_node=8 --use_env ./tools/train.py -c configs/decoplus/decoplus_r18.yml
+```
+
+### Evaluation
+Model evaluation can be done as follows:
+
+```bash
+python eval.py --config configs/decoplus/decoplus_r18.yml --coco_path {your_path_to_pretrained_ckpt}/decoplus_r18_150e.pth
+```
+
+Results of DECO+ with ResNet-18d backbone:
+```bash
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.407
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.589
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.443
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.237
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.437
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.556
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.327
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.562
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.636
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.438
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.671
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.811
+```
+
+Results of DECO+ with ResNet-50d backbone:
+```bash
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.479
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.672
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.524
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.313
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.520
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.645
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.363
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.612
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.684
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.511
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.728
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.845
 ```
 
 

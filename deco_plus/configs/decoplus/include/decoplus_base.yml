@@ -1,0 +1,82 @@
+task: detection
+
+model: DECOPLUS
+criterion: SetCriterion
+postprocessor: RTDETRPostProcessor
+
+
+DECOPLUS: 
+  backbone: ResNet
+  encoder: MultiscaleDecoEncoder
+  decoder: DecoPlusDecoderModule
+  multi_scale: [480, 512, 544, 576, 608, 640, 640, 640, 672, 704, 736, 768, 800]
+
+ResNet:
+  depth: 50
+  freeze_at: 0
+  return_idx: [1, 2, 3]
+  num_stages: 4
+  freeze_norm: True
+  pretrained: True 
+
+MultiscaleDecoEncoder:
+  in_channels: [512, 1024, 2048]
+  feat_strides: [8, 16, 32]
+
+  # intra
+  hidden_dim: 256
+  use_encoder_idx: [2]
+  num_encoder_layers: 1  
+  enc_dims: [256]
+  enc_depth: [4]
+
+  # cross
+  expansion: 1.0
+  depth_mult: 1
+  act: 'silu'
+
+  # eval
+  eval_spatial_size: [640, 640]
+
+DecoPlusDecoderModule:
+  feat_channels: [256, 256, 256]
+  feat_strides: [8, 16, 32]
+  hidden_dim: 256
+  num_levels: 3
+
+  num_classes: 80
+  num_queries: 300
+  qH: 15
+  inceptH: 13
+  qW: 20
+  inceptW: 15
+
+  branch_ratio: 0.25
+  memory_level: 1
+  downsample_act: 'silu'
+
+  num_decoder_layers: 6
+  
+  eval_idx: -1
+  eval_spatial_size: [640, 640]
+
+use_focal_loss: True
+
+RTDETRPostProcessor:
+  num_top_queries: 300
+
+SetCriterion:
+  # num_classes: 80
+  weight_dict: {loss_vfl: 1, loss_bbox: 5, loss_giou: 2,}
+  losses: ['vfl', 'boxes', ]
+  alpha: 0.75
+  gamma: 2.0
+
+  matcher:
+    type: HungarianMatcher
+    weight_dict: {cost_class: 2, cost_bbox: 5, cost_giou: 2}
+    alpha: 0.25
+    gamma: 2.0
+
+
+

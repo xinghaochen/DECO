@@ -1,0 +1,45 @@
+__include__: [
+  '../dataset/coco_detection.yml',
+  '../runtime.yml',
+  './include/dataloader.yml',
+  './include/optimizer.yml',
+  './include/decoplus_base.yml',
+]
+
+output_dir: ./output
+
+epoches: 150
+
+ResNet:
+  depth: 18
+  freeze_at: -1
+  freeze_norm: False
+  pretrained: True
+
+MultiscaleDecoEncoder:
+  in_channels: [128, 256, 512]
+  expansion: 0.5
+
+
+DecoPlusDecoderModule:
+  num_decoder_layers: 3
+
+
+optimizer:
+  type: AdamW
+  params: 
+    - 
+      params: '^(?=.*backbone)(?=.*norm).*$'
+      lr: 0.000015
+      weight_decay: 0.
+    - 
+      params: '^(?=.*backbone)(?!.*norm).*$'
+      lr: 0.000015
+    - 
+      params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bias)).*$'
+      weight_decay: 0.
+
+  lr: 0.00015
+  betas: [0.9, 0.999]
+  weight_decay: 0.0001
+

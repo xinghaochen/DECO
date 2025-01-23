@@ -3,11 +3,12 @@
 
 *Xinghao Chen\*, Siwei Li\*, Yijing Yang, Yunhe Wang (\*Equal Contribution)*
 
-*arXiv 2023* 
+*ICLR 2025* 
 
 [[`arXiv`](https://arxiv.org/abs/2312.13735)] [[`BibTeX`](#citation)]
 
 ## Updates
+* **2025/01/23**: DECO is accepted by ICLR 2025👏.
 * **2024/10/03**: Update pre-trained models and codes for DECO+.
 * **2024/10/02**: Update pre-trained models and codes for ConvNeXt backbone.
 * **2024/02/04**: Pre-trained models and codes of DECO are released both in [Pytorch](https://github.com/xinghaochen/DECO) and [Mindspore](https://github.com/mindspore-lab/models/tree/master/research/huawei-noah/DECO).
